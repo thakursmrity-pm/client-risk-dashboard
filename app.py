@@ -4,7 +4,8 @@ import pandas as pd
 st.set_page_config(page_title="Client Risk Early Warning System", layout="wide")
 
 st.title("Client Risk Early Warning System")
-st.caption("Identify at-risk accounts early using product, support, engagement, and renewal signals.")
+st.markdown("### Customer Success Risk Monitoring Dashboard")
+st.markdown("Monitor account health, surface early churn risk, and prioritize intervention.")
 # -----------------------------
 # Risk scoring logic
 # -----------------------------
@@ -173,6 +174,8 @@ col2.metric("High Risk", high_risk)
 col3.metric("Medium Risk", medium_risk)
 col4.metric("Renewals < 30 Days", renewal_30)
 
+st.info("Focus first on high-risk accounts with renewals in the next 30 days.")
+
 st.divider()
 
 # -----------------------------
@@ -186,21 +189,25 @@ with left:
     st.bar_chart(risk_counts)
 
 with right:
-    st.subheader("At-Risk Accounts")
+    st.subheader("Priority Accounts")
     display_cols = [
-        "account_name",
-        "risk_score",
-        "risk_level",
-        "days_to_renewal",
-        "critical_tickets",
-        "feature_adoption_pct",
-        "risk_reason",
-        "recommended_action",
-    ]
-    st.dataframe(
-        filtered_df[display_cols].sort_values(by="risk_score", ascending=False),
-        use_container_width=True
-    )
+    "account_name",
+    "risk_score",
+    "risk_level",
+    "days_to_renewal",
+    "risk_reason",
+    "recommended_action",
+]
+
+priority_df = filtered_df[display_cols].sort_values(
+    by=["risk_score", "days_to_renewal"],
+    ascending=[False, True]
+)
+
+st.dataframe(
+    priority_df,
+    use_container_width=True
+)
 
 st.divider()
 
