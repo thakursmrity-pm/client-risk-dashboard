@@ -4,8 +4,7 @@ import pandas as pd
 st.set_page_config(page_title="Client Risk Early Warning System", layout="wide")
 
 st.title("Client Risk Early Warning System")
-st.caption("Upload account data, detect risk, and prioritize action.")
-
+st.caption("Identify at-risk accounts early using product, support, engagement, and renewal signals.")
 # -----------------------------
 # Risk scoring logic
 # -----------------------------
